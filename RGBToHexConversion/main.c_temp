@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <ctype.h>
+
+#define wrap(val) val<0?0:val>255?255:val
+
+// int wrap(int val){
+//     val = val > 255 ? 255 : val;
+//     val = val < 0 ? 0 : val;
+//     return val;
+// }
+
+int rgb(int r, int g, int b, char *output){
+
+    sprintf(output, "%02X%02X%02X", wrap(r), wrap(g), wrap(b));
+    return 0;
+}
+int main(int argc, char const *argv[])
+{
+    char output[10];
+
+    rgb(148, 0, 211, output);
+    printf("%s\n", output);
+    rgb(255, 255, 255, output);
+    printf("%s\n", output);
+    rgb(0, 0, 0, output);
+    printf("%s\n", output);
+    rgb(1, 2, 3, output);
+    printf("%s\n", output);
+    return 0;
+}
