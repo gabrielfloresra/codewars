@@ -46,9 +46,8 @@ func comp(array1 []int, array2 []int) bool {
 		if !exists || num == 0 {
 
 			return false
-		} else {
-			numMap[pos]--
 		}
+		numMap[pos]--
 	}
 	return true
 }
