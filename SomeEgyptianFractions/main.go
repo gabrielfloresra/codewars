@@ -62,6 +62,9 @@ func decompose(frac string) []string {
 		return []string{}
 	}
 
+	mcdND := mcd(numerador, denominador)
+	numerador /= mcdND
+	denominador /= mcdND
 	num := 2
 	var soluciones []string
 	if numerador >= denominador {
@@ -77,6 +80,7 @@ func decompose(frac string) []string {
 		}
 		denominadorTemp := denominador
 		numeradorTemp := numerador
+		fmt.Printf("%d/%d - %d\n", numerador, denominador, num)
 		if num%denominador != 0 {
 
 			denominadorTemp *= num
@@ -87,15 +91,35 @@ func decompose(frac string) []string {
 			soluciones = append(soluciones, "1/"+strconv.Itoa(num))
 			numerador = numeradorTemp
 			denominador = denominadorTemp
+			mcdND := mcd(numerador, denominador)
+			numerador /= mcdND
+			denominador /= mcdND
+			if numerador == 1 {
+				numerador = 0
+				soluciones = append(soluciones, "1/"+strconv.Itoa(denominador))
+			}
 		}
 		num++
 	}
+	/*
+		 mejor resultado de codewars (robado :v)
+			for demon > 0 && numer > 0 {
+				nextNum := demon/numer + 1
+				if (nextNum-1)*numer == demon {
+					nextNum -= 1
+				}
+				res = append(res, fmt.Sprintf("1/%d", nextNum))
+				numer = numer*nextNum - demon
+				demon *= nextNum
+			}
+	*/
+
 	fmt.Printf("frac: %s\n", frac)
 	fmt.Println(soluciones)
 	return soluciones
 }
 
 func main() {
-	//decompose("21/23")
-	fmt.Println(decimalToRacional("0.5"))
+	decompose("50/4187")
+	//fmt.Println(decimalToRacional("50/4187"))
 }
